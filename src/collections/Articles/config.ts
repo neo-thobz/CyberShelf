@@ -6,6 +6,9 @@ import { generateSlugHook } from './hooks/generate-slug.hook'
 
 export const Articles: CollectionConfig = {
     slug: 'articles',
+    access: {
+    read: () => true,
+    },
     fields: [
         {
             name: 'title',
