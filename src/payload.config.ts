@@ -8,6 +8,7 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Articles } from './collections/Articles/config'
+import { ArticleAuthors } from './collections/ArticleAuthors/config'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -23,6 +24,7 @@ export default buildConfig({
     Users,
     Media, 
     Articles,
+    ArticleAuthors
   ],
   editor: lexicalEditor({
     features({ defaultFeatures }) {
