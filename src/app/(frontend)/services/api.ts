@@ -33,3 +33,18 @@ export async function fetchArticles(limit = 5) {
     return []
   }
 }
+
+export async function getArticle(slug: string) {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/articles?where[slug][equals]=${slug}&where[status][equals]=published&depth=2`,
+    { next: { revalidate: 60 } }
+  )
+
+  if (!res.ok) {
+    return null
+  }
+
+  const data = await res.json()
+  return data.docs?.[0] ?? null
+}
+
