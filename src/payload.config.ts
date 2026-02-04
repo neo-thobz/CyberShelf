@@ -9,6 +9,9 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Articles } from './collections/Articles/config'
 import { ArticleAuthors } from './collections/ArticleAuthors/config'
+import { AboutGlobal } from './globals/about'
+import { CarouselImages } from './collections/CarouselImages/config'
+import { ContactSubmissions } from './collections/ContactSubmissions/config'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -24,8 +27,11 @@ export default buildConfig({
     Users,
     Media, 
     Articles,
-    ArticleAuthors
+    ArticleAuthors,
+    CarouselImages,
+    ContactSubmissions,
   ],
+  globals: [AboutGlobal],
   editor: lexicalEditor({
     features({ defaultFeatures }) {
       return [
