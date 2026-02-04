@@ -1,48 +1,12 @@
 import ImageCarousel from '@/app/(frontend)/components/ImageCarousel'
 import ArticleCard from '@/app/(frontend)/components/ArticleCard'
-
-function NoDataPlaceholder({ message }: { message: string }) {
-  return (
-    <div className="text-center text-gray-500 py-16">
-      <p className="text-xl">{message}</p>
-    </div>
-  )
-}
-
-async function getCarouselImages() {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/carousel-images?limit=5&sort=order`,
-      { next: { revalidate: 60 } }
-    )
-    if (!res.ok) return []
-    const data = await res.json()
-    return data.docs ?? []
-  } catch (err) {
-    console.error('Error fetching carousel images:', err)
-    return []
-  }
-}
-
-async function getArticles() {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/articles?where[status][equals]=published&limit=6&sort=-publishedAt&depth=2`,
-      { next: { revalidate: 60 } }
-    )
-    if (!res.ok) return []
-    const data = await res.json()
-    return data.docs ?? []
-  } catch (err) {
-    console.error('Error fetching articles:', err)
-    return []
-  }
-}
+import NoDataPlaceholder from '@/app/(frontend)/components/NoDataPlaceholder'
+import { fetchCarouselImages, fetchArticles } from '@/app/(frontend)/services/api'
 
 export default async function Home() {
   const [carouselImages, articles] = await Promise.all([
-    getCarouselImages(),
-    getArticles(),
+    fetchCarouselImages(),
+    fetchArticles(),
   ])
 
   return (

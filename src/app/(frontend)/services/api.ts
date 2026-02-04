@@ -1,0 +1,35 @@
+export async function fetchCarouselImages(limit = 5) {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/carousel-images?limit=${limit}&sort=order`,
+      { next: { revalidate: 60 } }
+    )
+
+    if (!res.ok) {
+      return []
+    }
+
+    const data = await res.json()
+    return data.docs ?? []
+  } catch (err) {
+    return []
+  }
+}
+
+export async function fetchArticles(limit = 5) {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/articles?where[status][equals]=published&limit=${limit}&sort=-publishedAt&depth=2`,
+      { next: { revalidate: 60 } }
+    )
+
+    if (!res.ok) {
+      return []
+    }
+
+    const data = await res.json()
+    return data.docs ?? []
+  } catch (err) {
+    return []
+  }
+}
