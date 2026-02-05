@@ -12,7 +12,7 @@ interface Author {
   avatar?: {
     url: string
     alt?: string
-  }
+  } | string | number
 }
 
 interface ImageType {
@@ -28,7 +28,7 @@ interface Article {
   title: string
   content: any
   contentSummary?: string
-  author?: Author | null
+  author?: Author | string | number | null
   publishedAt?: string
   readTimeInMins?: number
   coverImage?: ImageType | null
@@ -47,7 +47,20 @@ export default async function ArticlePage({
     notFound()
   }
 
-  const authorName = article.author?.name ?? 'Unknown author'
+  console.log("[v0] Article data:", JSON.stringify(article, null, 2))
+  console.log("[v0] Author field:", article.author)
+  console.log("[v0] Author type:", typeof article.author)
+
+  // Handle both populated author object and unpopulated ID reference
+  const getAuthorName = () => {
+    if (!article.author) return 'Unknown author'
+    if (typeof article.author === 'string' || typeof article.author === 'number') {
+      return 'Unknown author' // Author not populated
+    }
+    return article.author.name ?? 'Unknown author'
+  }
+
+  const authorName = getAuthorName()
 
   const coverImageUrl =
     article.coverImage?.sizes?.hero?.url ?? article.coverImage?.url
