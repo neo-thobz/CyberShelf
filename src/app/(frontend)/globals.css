@@ -3,8 +3,34 @@
 @theme inline {
   --font-sans: 'Geist', 'Geist Fallback', system-ui, sans-serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
-  
-  /* Color palette - Modern dark theme */
+  --radius: 0.75rem;
+}
+
+/* Light mode (default) */
+:root {
+  --color-background: #fafafa;
+  --color-foreground: #0a0a0a;
+  --color-muted: #f4f4f5;
+  --color-muted-foreground: #71717a;
+  --color-card: #ffffff;
+  --color-card-foreground: #0a0a0a;
+  --color-border: #e4e4e7;
+  --color-input: #e4e4e7;
+  --color-primary: #0a0a0a;
+  --color-primary-foreground: #fafafa;
+  --color-secondary: #f4f4f5;
+  --color-secondary-foreground: #0a0a0a;
+  --color-accent: #2563eb;
+  --color-accent-foreground: #fafafa;
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #fafafa;
+  --color-success: #16a34a;
+  --color-success-foreground: #fafafa;
+  --color-ring: #2563eb;
+}
+
+/* Dark mode */
+.dark {
   --color-background: #0a0a0a;
   --color-foreground: #fafafa;
   --color-muted: #171717;
@@ -24,7 +50,6 @@
   --color-success: #22c55e;
   --color-success-foreground: #0a0a0a;
   --color-ring: #3b82f6;
-  --radius: 0.75rem;
 }
 
 * {
