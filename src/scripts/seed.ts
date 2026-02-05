@@ -27,10 +27,9 @@ const createRichText = (text: string) => ({
         ],
       },
     ],
-    direction: 'ltr',
-    format: '',
+    direction: 'ltr' as const,
+    format: '' as const,
     indent: 0,
-    version: 1,
   },
 })
 
@@ -144,17 +143,24 @@ async function seed() {
       })
       if (existing.docs.length > 0) continue
 
-      await payload.create({
-        collection: 'articles',
-        data: {
-          ...article,
-          author: author.id,
-          coverImage: coverImage.id,
-        },
-      })
+      if (article.status === ARTICLE_STATUS.DRAFT) {
+        // Draft articles must include `draft: true`
+        await payload.create({
+          collection: 'articles',
+          draft: true,
+          data: {
+            author: author.id,
+            coverImage: coverImage.id,
+            title: article.title,
+            content: article.content,
+            contentSummary: article.contentSummary,
+            status: article.status,
+          },
+        })
+      }
+
       console.log(`Created article: ${article.title}`)
     }
-
     console.log('Seed completed successfully!')
   } catch (error) {
     console.error('Seed failed:', error)
