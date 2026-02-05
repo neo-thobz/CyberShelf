@@ -18,7 +18,7 @@ export default function Contact() {
           {
             icon: Mail,
             label: 'Email',
-            value: 'contact@contenthub.com',
+            value: 'contact@Cyber Shelf.com',
           },
           {
             icon: Phone,

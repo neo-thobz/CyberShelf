@@ -19,7 +19,7 @@ export default function Navigation() {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="text-2xl font-display font-bold text-primary-600">
-              ContentHub
+              Cyber Shelf
             </Link>
           </div>
 

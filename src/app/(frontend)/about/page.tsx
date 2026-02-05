@@ -12,7 +12,7 @@ export default function About() {
             Building Content That Matters
           </h1>
           <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
-            ContentHub is a modern publishing platform focused on clarity, quality,
+            Cyber Shelf is a modern publishing platform focused on clarity, quality,
             and technology-driven storytelling.
           </p>
         </div>
@@ -26,7 +26,7 @@ export default function About() {
 
           <div className="space-y-6 text-gray-700 leading-relaxed">
             <p>
-              Founded in 2024, ContentHub began with a simple idea: create a space
+              Founded in 2024, Cyber Shelf began with a simple idea: create a space
               where quality content and modern technology work seamlessly together.
               We saw a gap for platforms that valued both thoughtful editorial
               standards and strong technical foundations.
@@ -40,7 +40,7 @@ export default function About() {
             </p>
 
             <p>
-              Today, ContentHub leverages a modern, headless architecture to ensure
+              Today, Cyber Shelf leverages a modern, headless architecture to ensure
               performance, scalability, and accessibility. Our focus remains the
               same — delivering content people can trust, on a platform built to
               last.

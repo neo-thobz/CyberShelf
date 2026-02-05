@@ -35,7 +35,6 @@ export async function POST(request: NextRequest) {
         firstName: body.firstName,
         lastName: body.lastName,
         email: body.email,
-        phone: body.phone || '',
         message: body.message || '',
         marketingConsent: body.marketingConsent,
         termsAccepted: body.termsAccepted,
