@@ -9,7 +9,7 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Articles } from './collections/Articles/config'
 import { ArticleAuthors } from './collections/ArticleAuthors/config'
-import { AboutGlobal } from './globals/about'
+import { ContactUsGlobal } from './globals/Contact/config'
 import { CarouselImages } from './collections/CarouselImages/config'
 import { ContactSubmissions } from './collections/ContactSubmissions/config'
 
@@ -31,7 +31,7 @@ export default buildConfig({
     CarouselImages,
     ContactSubmissions,
   ],
-  globals: [AboutGlobal],
+  globals: [ContactUsGlobal],
   editor: lexicalEditor({
     features({ defaultFeatures }) {
       return [
