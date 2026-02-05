@@ -1,4 +1,5 @@
 import { ARTICLE_STATUS } from "@/shared/constants/article-status"
+import { Address } from "@/shared/types/Address.model"
 
 export async function fetchCarouselImages(limit = 5) {
   try {
@@ -13,7 +14,7 @@ export async function fetchCarouselImages(limit = 5) {
 
     const data = await res.json()
     return data.docs ?? []
-  } catch (err) {
+  } catch {
     return []
   }
 }
@@ -31,7 +32,7 @@ export async function fetchArticles(limit = 5) {
 
     const data = await res.json()
     return data.docs ?? []
-  } catch (err) {
+  } catch {
     return []
   }
 }
@@ -53,7 +54,7 @@ export async function getArticle(slug: string) {
 interface ContactGlobal {
   email?: string
   phone?: string
-  address?: string
+  address?: Address
 }
 
 export async function getContactInfo(): Promise<ContactGlobal | null>  {
@@ -67,7 +68,7 @@ export async function getContactInfo(): Promise<ContactGlobal | null>  {
 
     const data = await res.json()
     return data ?? null
-  } catch (err) {
+  } catch {
     return null
   }
 }

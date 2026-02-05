@@ -42,11 +42,14 @@ export default function ContactForm() {
     }
   }
 
+  const inputClasses = "w-full px-4 py-3 bg-secondary border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
+  const labelClasses = "block text-sm font-medium text-foreground mb-2"
+
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         <div>
-          <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="firstName" className={labelClasses}>
             First Name *
           </label>
           <input
@@ -55,11 +58,12 @@ export default function ContactForm() {
             required
             value={formData.firstName}
             onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className={inputClasses}
+            placeholder="John"
           />
         </div>
         <div>
-          <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="lastName" className={labelClasses}>
             Last Name *
           </label>
           <input
@@ -68,13 +72,14 @@ export default function ContactForm() {
             required
             value={formData.lastName}
             onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className={inputClasses}
+            placeholder="Doe"
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="email" className={labelClasses}>
           Email *
         </label>
         <input
@@ -83,12 +88,13 @@ export default function ContactForm() {
           required
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+          className={inputClasses}
+          placeholder="john@example.com"
         />
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="message" className={labelClasses}>
           Message
         </label>
         <textarea
@@ -96,47 +102,48 @@ export default function ContactForm() {
           rows={5}
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+          className={`${inputClasses} resize-none`}
+          placeholder="How can we help you?"
         />
       </div>
 
-      <div className="space-y-3">
-        <div className="flex items-start">
+      <div className="space-y-4">
+        <div className="flex items-start gap-3">
           <input
             type="checkbox"
             id="marketingConsent"
             checked={formData.marketingConsent}
             onChange={(e) => setFormData({ ...formData, marketingConsent: e.target.checked })}
-            className="mt-1 mr-3 h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+            className="mt-1 h-4 w-4 rounded border-border bg-secondary text-accent focus:ring-accent focus:ring-offset-0"
           />
-          <label htmlFor="marketingConsent" className="text-sm text-gray-700">
+          <label htmlFor="marketingConsent" className="text-sm text-muted-foreground">
             I consent to receiving marketing communications
           </label>
         </div>
 
-        <div className="flex items-start">
+        <div className="flex items-start gap-3">
           <input
             type="checkbox"
             id="termsAccepted"
             required
             checked={formData.termsAccepted}
             onChange={(e) => setFormData({ ...formData, termsAccepted: e.target.checked })}
-            className="mt-1 mr-3 h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+            className="mt-1 h-4 w-4 rounded border-border bg-secondary text-accent focus:ring-accent focus:ring-offset-0"
           />
-          <label htmlFor="termsAccepted" className="text-sm text-gray-700">
+          <label htmlFor="termsAccepted" className="text-sm text-muted-foreground">
             I accept the Terms & Conditions *
           </label>
         </div>
       </div>
 
       {status === 'success' && (
-        <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-md">
+        <div className="bg-success/10 border border-success/30 text-success px-4 py-3 rounded-lg text-sm">
           Thank you! Your message has been submitted successfully.
         </div>
       )}
 
       {status === 'error' && (
-        <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-md">
+        <div className="bg-destructive/10 border border-destructive/30 text-destructive px-4 py-3 rounded-lg text-sm">
           Something went wrong. Please try again.
         </div>
       )}
@@ -144,7 +151,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="w-full bg-green-500 text-white py-3 px-6 rounded-md hover:bg-grey-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+        className="w-full bg-foreground text-background py-3 px-6 rounded-lg hover:bg-foreground/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-medium text-sm sm:text-base"
       >
         {status === 'loading' ? 'Submitting...' : 'Submit'}
       </button>

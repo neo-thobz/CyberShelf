@@ -13,10 +13,10 @@ export default function NoDataPlaceholder({
 }: NoDataPlaceholderProps) {
   return (
     <div
-      className={`flex flex-col items-center justify-center text-center text-gray-500 py-16 ${className}`}
+      className={`flex flex-col items-center justify-center text-center py-16 sm:py-20 px-4 ${className}`}
     >
       {imageSrc && (
-        <div className="mb-6 w-64 h-64 relative">
+        <div className="mb-6 w-48 h-48 sm:w-64 sm:h-64 relative opacity-70">
           <Image
             src={imageSrc}
             alt="No data illustration"
@@ -25,7 +25,7 @@ export default function NoDataPlaceholder({
           />
         </div>
       )}
-      <p className="text-xl">{message}</p>
+      <p className="text-lg sm:text-xl text-muted-foreground">{message}</p>
     </div>
   )
 }

@@ -46,7 +46,6 @@ export const addressField: Field = {
       name: 'country',
       type: 'text',
       required: true,
-      defaultValue: 'ZA',
     },
   ],
 }
