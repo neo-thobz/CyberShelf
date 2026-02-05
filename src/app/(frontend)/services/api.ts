@@ -1,4 +1,5 @@
 import { ARTICLE_STATUS } from "@/shared/constants/article-status"
+import { Address } from "@/shared/types/Address.model"
 
 export async function fetchCarouselImages(limit = 5) {
   try {
@@ -53,7 +54,7 @@ export async function getArticle(slug: string) {
 interface ContactGlobal {
   email?: string
   phone?: string
-  address?: string
+  address?: Address
 }
 
 export async function getContactInfo(): Promise<ContactGlobal | null>  {

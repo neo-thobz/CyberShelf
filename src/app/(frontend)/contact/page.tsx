@@ -1,6 +1,7 @@
 import ContactForm from '@/app/(frontend)/components/ContactForm'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { getContactInfo } from '../services/api'
+import { formatAddress } from '@/utils/addressHelper';
 
 export default async function Contact() {
   const contactInfo = await getContactInfo()
@@ -20,7 +21,7 @@ export default async function Contact() {
     {
       icon: MapPin,
       label: 'Office',
-      value: contactInfo?.address || 'Not available',
+      value: formatAddress(contactInfo?.address) || 'Not available',
     },
   ]
 

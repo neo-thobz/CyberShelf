@@ -5,6 +5,9 @@ import { validatePhone } from '@/utils/validators'
 export const ContactUsGlobal: GlobalConfig = {
     slug: 'contact',
     label: 'Contact Us Page Content',
+    access: {
+        read: () => true,
+    },
     fields: [
         {
             name: 'email',
