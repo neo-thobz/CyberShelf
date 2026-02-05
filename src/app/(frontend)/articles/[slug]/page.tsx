@@ -8,7 +8,7 @@ import BackButton from '@/app/(frontend)/components/BackButton'
 export default async function ArticlePage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
 

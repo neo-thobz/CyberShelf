@@ -1,12 +1,12 @@
 import { getPayloadClient } from '@/lib/payload/client'
-import { STATUS_OPTIONS } from './constants'
+import { ARTICLE_STATUS } from '@/shared/constants/article-status'
 
 export async function getPublishedArticles() {
     const payload = await getPayloadClient()
     try {
         const { docs: articles } = await payload.find({
             collection: 'articles',
-            where: { status: { equals: STATUS_OPTIONS.PUBLISHED } },
+            where: { status: { equals: ARTICLE_STATUS.PUBLISHED } },
             depth: 2,
             select: {
                 slug: true,
