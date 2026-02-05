@@ -12,7 +12,8 @@ export default async function Home() {
   return (
     <main>
       {carouselImages.length === 0 ? (
-        <NoDataPlaceholder message="No carousel images yet." />
+        <NoDataPlaceholder message="No carousel images yet."
+        imageSrc='/images/no_sliders.jpg' />
       ) : (
         <ImageCarousel images={carouselImages} />
       )}
@@ -28,7 +29,8 @@ export default async function Home() {
         </div>
 
         {articles.length === 0 ? (
-          <NoDataPlaceholder message="No articles published yet. Check back soon!" />
+          <NoDataPlaceholder message="No articles published yet. Check back soon!" 
+          imageSrc='/images/no_articles.jpg'/>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {articles.map((article: any) => (

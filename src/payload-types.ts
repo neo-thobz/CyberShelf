@@ -285,7 +285,6 @@ export interface ContactSubmission {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
   message?: string | null;
   marketingConsent: boolean;
   termsAccepted: boolean;
@@ -507,7 +506,6 @@ export interface ContactSubmissionsSelect<T extends boolean = true> {
   firstName?: T;
   lastName?: T;
   email?: T;
-  phone?: T;
   message?: T;
   marketingConsent?: T;
   termsAccepted?: T;
