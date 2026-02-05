@@ -559,20 +559,18 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface About {
   id: number;
-  ourStory: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
+  email: string;
+  /**
+   * Include country code (e.g. +27)
+   */
+  phone?: string | null;
+  address: {
+    line1: string;
+    line2?: string | null;
+    city: string;
+    state: string;
+    postalCode: string;
+    country: string;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -582,7 +580,18 @@ export interface About {
  * via the `definition` "about_select".
  */
 export interface AboutSelect<T extends boolean = true> {
-  ourStory?: T;
+  email?: T;
+  phone?: T;
+  address?:
+    | T
+    | {
+        line1?: T;
+        line2?: T;
+        city?: T;
+        state?: T;
+        postalCode?: T;
+        country?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

@@ -1,7 +1,28 @@
 import ContactForm from '@/app/(frontend)/components/ContactForm'
 import { Mail, MapPin, Phone } from 'lucide-react'
+import { getContactInfo } from '../services/api'
 
-export default function Contact() {
+export default async function Contact() {
+  const contactInfo = await getContactInfo()
+
+  const items = [
+    {
+      icon: Mail,
+      label: 'Email',
+      value: contactInfo?.email || 'Not available',
+    },
+    {
+      icon: Phone,
+      label: 'Phone',
+      value: contactInfo?.phone || 'Not available',
+    },
+    {
+      icon: MapPin,
+      label: 'Office',
+      value: contactInfo?.address || 'Not available',
+    },
+  ]
+
   return (
     <main className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16">
       <div className="text-center mb-16">
@@ -14,23 +35,7 @@ export default function Contact() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-        {[
-          {
-            icon: Mail,
-            label: 'Email',
-            value: 'contact@Cyber Shelf.com',
-          },
-          {
-            icon: Phone,
-            label: 'Phone',
-            value: '+1 (555) 123-4567',
-          },
-          {
-            icon: MapPin,
-            label: 'Office',
-            value: '123 Content Street, Digital City',
-          },
-        ].map(({ icon: Icon, label, value }) => (
+        {items.map(({ icon: Icon, label, value }) => (
           <div
             key={label}
             className="bg-white p-8 rounded-xl shadow-md text-center hover:shadow-lg transition"

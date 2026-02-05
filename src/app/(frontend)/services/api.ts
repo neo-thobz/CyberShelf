@@ -50,3 +50,24 @@ export async function getArticle(slug: string) {
   return data.docs?.[0] ?? null
 }
 
+interface ContactGlobal {
+  email?: string
+  phone?: string
+  address?: string
+}
+
+export async function getContactInfo(): Promise<ContactGlobal | null>  {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/globals/contact`,
+      { next: { revalidate: 60 } }
+    )
+
+    if (!res.ok) return null
+
+    const data = await res.json()
+    return data ?? null
+  } catch (err) {
+    return null
+  }
+}
