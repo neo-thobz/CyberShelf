@@ -6,9 +6,13 @@ import RichText from '../../components/RichText'
 import BackButton from '@/app/(frontend)/components/BackButton'
 
 interface Author {
-  firstName?: string
-  lastName?: string
-  email?: string
+  id: string
+  name: string
+  role?: string
+  avatar?: {
+    url: string
+    alt?: string
+  }
 }
 
 interface ImageType {
@@ -43,10 +47,7 @@ export default async function ArticlePage({
     notFound()
   }
 
-  const authorName =
-    article.author?.firstName || article.author?.lastName
-      ? `${article.author.firstName ?? ''} ${article.author.lastName ?? ''}`.trim()
-      : article.author?.email ?? 'Unknown author'
+  const authorName = article.author?.name ?? 'Unknown author'
 
   const coverImageUrl =
     article.coverImage?.sizes?.hero?.url ?? article.coverImage?.url

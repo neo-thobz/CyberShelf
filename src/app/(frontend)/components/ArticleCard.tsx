@@ -5,6 +5,11 @@ import { Calendar, User } from 'lucide-react'
 interface Author {
   id: string
   name: string
+  role?: string
+  avatar?: {
+    url: string
+    alt?: string
+  }
 }
 
 interface CoverImage {
