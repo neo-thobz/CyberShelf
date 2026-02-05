@@ -10,13 +10,17 @@ export default function ThemeToggle() {
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    const handleClickOutside = (event: PointerEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false)
       }
     }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
+
+    document.addEventListener('pointerdown', handleClickOutside)
+    return () => document.removeEventListener('pointerdown', handleClickOutside)
   }, [])
 
   const options = [
@@ -25,46 +29,57 @@ export default function ThemeToggle() {
     { value: 'system' as const, label: 'System', icon: Monitor },
   ]
 
-  // Show a placeholder during hydration to prevent layout shift
+  // Prevent hydration mismatch
   if (!mounted) {
     return (
-      <div className="p-2 rounded-lg w-9 h-9">
+      <div className="p-2 rounded-lg w-9 h-9 bg-transparent">
         <span className="sr-only">Loading theme toggle</span>
       </div>
     )
   }
 
-  const currentIcon = resolvedTheme === 'dark' ? Moon : Sun
+  const CurrentIcon = resolvedTheme === 'dark' ? Moon : Sun
 
   return (
     <div className="relative" ref={dropdownRef}>
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation()
+          setIsOpen((prev) => !prev)
+        }}
         className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
         aria-label="Toggle theme"
       >
-        <currentIcon size={20} />
+        <CurrentIcon size={20} />
       </button>
 
       {isOpen && (
         <div className="absolute right-0 mt-2 w-36 bg-card border border-border rounded-lg shadow-lg overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200 z-50">
-          {options.map((option) => (
-            <button
-              key={option.value}
-              onClick={() => {
-                setTheme(option.value)
-                setIsOpen(false)
-              }}
-              className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
-                theme === option.value
-                  ? 'bg-secondary text-foreground'
-                  : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
-              }`}
-            >
-              <option.icon size={16} />
-              {option.label}
-            </button>
-          ))}
+          {options.map((option) => {
+            const isActive =
+              theme === option.value ||
+              (theme === 'system' && option.value === 'system')
+
+            return (
+              <button
+                key={option.value}
+                type="button"
+                onClick={() => {
+                  setTheme(option.value)
+                  setIsOpen(false)
+                }}
+                className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
+                  isActive
+                    ? 'bg-secondary text-foreground'
+                    : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
+                }`}
+              >
+                <option.icon size={16} />
+                {option.label}
+              </button>
+            )
+          })}
         </div>
       )}
     </div>
