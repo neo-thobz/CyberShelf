@@ -4,6 +4,7 @@ import NoDataPlaceholder from '@/app/(frontend)/components/NoDataPlaceholder'
 import { fetchCarouselImages } from '@/app/(frontend)/services/api'
 import { getPublishedArticles } from '@/collections/Articles/fetchers'
 
+export const dynamic = 'force-dynamic'
 export default async function Home() {
   const [carouselImages, articles] = await Promise.all([
     fetchCarouselImages(),
