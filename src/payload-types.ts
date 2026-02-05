@@ -96,10 +96,10 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
-    about: About;
+    contact: Contact;
   };
   globalsSelect: {
-    about: AboutSelect<false> | AboutSelect<true>;
+    contact: ContactSelect<false> | ContactSelect<true>;
   };
   locale: null;
   user: User & {
@@ -555,15 +555,12 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about".
+ * via the `definition` "contact".
  */
-export interface About {
+export interface Contact {
   id: number;
   email: string;
-  /**
-   * Include country code (e.g. +27)
-   */
-  phone?: string | null;
+  phone: string;
   address: {
     line1: string;
     line2?: string | null;
@@ -577,9 +574,9 @@ export interface About {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about_select".
+ * via the `definition` "contact_select".
  */
-export interface AboutSelect<T extends boolean = true> {
+export interface ContactSelect<T extends boolean = true> {
   email?: T;
   phone?: T;
   address?:
