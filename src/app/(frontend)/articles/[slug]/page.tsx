@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Calendar, User } from 'lucide-react'
+import { Calendar, User, Clock } from 'lucide-react'
 import { notFound } from 'next/navigation'
 import { getArticle } from '@/app/(frontend)/services/api'
 import RichText from '../../components/RichText'
@@ -30,13 +30,11 @@ interface Article {
   coverImage?: ImageType | null
 }
 
-// ✅ Next.js App Router Page
 export default async function ArticlePage({
   params,
 }: {
   params: { slug: string }
 }) {
-  // Correct usage: await params before using slug
   const { slug } = await params
 
   const article: Article | null = await getArticle(slug)
@@ -54,23 +52,29 @@ export default async function ArticlePage({
     article.coverImage?.sizes?.hero?.url ?? article.coverImage?.url
 
   return (
-    <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <BackButton />
-      <article>
-        <header className="mb-8">
-          <h1 className="text-5xl font-display font-bold text-gray-900 mb-6">
+    <div className="min-h-screen">
+      {/* Back Button */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <BackButton />
+      </div>
+
+      <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20">
+        {/* Header */}
+        <header className="mb-8 sm:mb-12">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground mb-6 text-balance leading-tight">
             {article.title}
           </h1>
 
-          <div className="flex items-center text-gray-600 space-x-6">
-            <div className="flex items-center">
-              <User size={20} className="mr-2" />
+          {/* Meta */}
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <User size={18} className="text-muted-foreground/70" />
               <span>{authorName}</span>
             </div>
 
             {article.publishedAt && (
-              <div className="flex items-center">
-                <Calendar size={20} className="mr-2" />
+              <div className="flex items-center gap-2">
+                <Calendar size={18} className="text-muted-foreground/70" />
                 <span>
                   {new Date(article.publishedAt).toLocaleDateString('en-US', {
                     year: 'numeric',
@@ -82,15 +86,17 @@ export default async function ArticlePage({
             )}
 
             {article.readTimeInMins && (
-              <span className="text-sm text-gray-500">
-                {article.readTimeInMins} min read
-              </span>
+              <div className="flex items-center gap-2">
+                <Clock size={18} className="text-muted-foreground/70" />
+                <span>{article.readTimeInMins} min read</span>
+              </div>
             )}
           </div>
         </header>
 
+        {/* Cover Image */}
         {coverImageUrl && (
-          <div className="relative h-96 mb-8 rounded-lg overflow-hidden">
+          <div className="relative aspect-video sm:aspect-[2/1] mb-8 sm:mb-12 rounded-xl overflow-hidden border border-border">
             <Image
               src={coverImageUrl}
               alt={article.coverImage?.alt ?? article.title}
@@ -101,102 +107,16 @@ export default async function ArticlePage({
           </div>
         )}
 
+        {/* Content */}
         <div className="prose prose-lg max-w-none">
-          <p className="text-xl text-gray-600 mb-8">
-            {article.contentSummary ?? article.content.slice(0, 200) + '...'}
-          </p>
+          {article.contentSummary && (
+            <p className="text-lg sm:text-xl text-muted-foreground mb-8 leading-relaxed border-l-2 border-accent pl-4 sm:pl-6">
+              {article.contentSummary}
+            </p>
+          )}
           <RichText content={article.content} />
         </div>
       </article>
-    </main>
+    </div>
   )
 }
-
-
-// import Image from 'next/image'
-// import { Calendar, User } from 'lucide-react'
-// import { notFound } from 'next/navigation'
-// import { getArticle } from '@/app/(frontend)/services/api'
-// import RichText from '../../components/RichText'
-
-// export default async function ArticlePage({
-//   params,
-// }: {
-//   params: { slug: string }
-// }) {
-//   const article = await getArticle(params.slug)
-
-//   if (!article) {
-//     notFound()
-//   }
-
-//   const authorName =
-//     typeof article.author === 'object'
-//       ? article.author.name ?? article.author.email
-//       : 'Unknown author'
-
-//   const coverImageUrl =
-//     article.coverImage?.sizes?.hero?.url ??
-//     article.coverImage?.url
-
-//   return (
-//     <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-//       <article>
-//         {/* Header */}
-//         <header className="mb-8">
-//           <h1 className="text-5xl font-display font-bold text-gray-900 mb-6">
-//             {article.title}
-//           </h1>
-
-//           <div className="flex items-center text-gray-600 space-x-6">
-//             <div className="flex items-center">
-//               <User size={20} className="mr-2" />
-//               <span>{authorName}</span>
-//             </div>
-
-//             {article.publishedAt && (
-//               <div className="flex items-center">
-//                 <Calendar size={20} className="mr-2" />
-//                 <span>
-//                   {new Date(article.publishedAt).toLocaleDateString('en-US', {
-//                     year: 'numeric',
-//                     month: 'long',
-//                     day: 'numeric',
-//                   })}
-//                 </span>
-//               </div>
-//             )}
-
-//             {article.readTimeInMins && (
-//               <span className="text-sm text-gray-500">
-//                 {article.readTimeInMins} min read
-//               </span>
-//             )}
-//           </div>
-//         </header>
-
-//         {/* Cover Image */}
-//         {coverImageUrl && (
-//           <div className="relative h-96 mb-8 rounded-lg overflow-hidden">
-//             <Image
-//               src={coverImageUrl}
-//               alt={article.coverImage?.alt ?? article.title}
-//               fill
-//               className="object-cover"
-//               priority
-//             />
-//           </div>
-//         )}
-
-//         {/* Content */}
-//         <div className="prose prose-lg max-w-none">
-//           <p className="text-xl text-gray-600 mb-8">
-//             {article.contentSummary}
-//           </p>
-
-//           <RichText content={article.content} />
-//         </div>
-//       </article>
-//     </main>
-//   )
-// }

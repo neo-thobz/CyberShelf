@@ -24,14 +24,14 @@ interface ImageCarouselProps {
 
 export default function ImageCarousel({ images }: ImageCarouselProps) {
   return (
-    <div className="w-full h-[500px] relative">
+    <div className="w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] relative">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         navigation
         pagination={{ clickable: true }}
         autoplay={{ delay: 5000 }}
         loop
-        className="h-full"
+        className="h-full [&_.swiper-button-next]:text-foreground [&_.swiper-button-prev]:text-foreground [&_.swiper-pagination-bullet]:bg-foreground/40 [&_.swiper-pagination-bullet-active]:bg-foreground"
       >
         {images.map((item) => (
           <SwiperSlide key={item.id}>
@@ -43,11 +43,16 @@ export default function ImageCarousel({ images }: ImageCarouselProps) {
                 className="object-cover"
                 priority
               />
+              {/* Overlay gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+              
               {item.caption && (
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-8">
-                  <h2 className="text-white text-3xl font-display font-bold">
-                    {item.caption}
-                  </h2>
+                <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-12">
+                  <div className="max-w-7xl mx-auto">
+                    <h2 className="text-foreground text-xl sm:text-2xl md:text-4xl font-semibold max-w-2xl text-balance">
+                      {item.caption}
+                    </h2>
+                  </div>
                 </div>
               )}
             </div>

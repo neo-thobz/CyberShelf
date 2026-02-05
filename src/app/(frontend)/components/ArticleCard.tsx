@@ -43,28 +43,36 @@ export default function ArticleCard({
   const imageAlt = coverImage?.alt ?? title
 
   return (
-    <Link href={`/articles/${slug}`} className="group">
-      <article className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
-        <div className="relative h-48 overflow-hidden">
+    <Link href={`/articles/${slug}`} className="group block">
+      <article className="bg-card border border-border rounded-xl overflow-hidden hover:border-muted-foreground/30 transition-all duration-300 h-full flex flex-col">
+        {/* Image */}
+        <div className="relative h-48 sm:h-52 overflow-hidden">
           <Image
             src={imageUrl}
             alt={imageAlt}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
-        <div className="p-6">
-          <h3 className="text-xl font-display font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">
+        
+        {/* Content */}
+        <div className="p-5 sm:p-6 flex flex-col flex-1">
+          <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2 group-hover:text-accent transition-colors line-clamp-2 text-balance">
             {title}
           </h3>
-          <p className="text-gray-600 mb-4 line-clamp-3">{excerpt}</p>
-          <div className="flex items-center text-sm text-gray-500 space-x-4">
-            <div className="flex items-center">
-              <User size={16} className="mr-1" />
+          <p className="text-muted-foreground text-sm sm:text-base mb-4 line-clamp-3 flex-1 leading-relaxed">
+            {excerpt}
+          </p>
+          
+          {/* Meta */}
+          <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-muted-foreground pt-4 border-t border-border">
+            <div className="flex items-center gap-1.5">
+              <User size={14} className="text-muted-foreground/70" />
               <span>{author?.name ?? 'Unknown Author'}</span>
             </div>
-            <div className="flex items-center">
-              <Calendar size={16} className="mr-1" />
+            <div className="flex items-center gap-1.5">
+              <Calendar size={14} className="text-muted-foreground/70" />
               <span>{new Date(publishedDate).toLocaleDateString()}</span>
             </div>
           </div>
