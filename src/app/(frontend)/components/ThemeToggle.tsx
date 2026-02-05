@@ -5,7 +5,7 @@ import { useTheme } from './ThemeProvider'
 import { useState, useRef, useEffect } from 'react'
 
 export default function ThemeToggle() {
-  const { theme, setTheme, resolvedTheme } = useTheme()
+  const { theme, setTheme, resolvedTheme, mounted } = useTheme()
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -24,6 +24,15 @@ export default function ThemeToggle() {
     { value: 'dark' as const, label: 'Dark', icon: Moon },
     { value: 'system' as const, label: 'System', icon: Monitor },
   ]
+
+  // Show a placeholder during hydration to prevent layout shift
+  if (!mounted) {
+    return (
+      <div className="p-2 rounded-lg w-9 h-9">
+        <span className="sr-only">Loading theme toggle</span>
+      </div>
+    )
+  }
 
   const currentIcon = resolvedTheme === 'dark' ? Moon : Sun
 
