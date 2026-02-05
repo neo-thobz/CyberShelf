@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { getArticleBySlug } from '@/collections/Articles/fetchers'
 import RichText from '../../components/RichText'
 import BackButton from '@/app/(frontend)/components/BackButton'
+import { isMedia } from '@/utils/isMedia'
 
 export default async function ArticlePage({
   params,
@@ -24,8 +25,13 @@ export default async function ArticlePage({
     ? author.name 
     : 'Unknown author'
 
-  const coverImageUrl =
-    article.coverImage?.sizes?.hero?.url ?? article.coverImage?.url
+  const coverImageUrl = isMedia(article.coverImage)
+    ? article.coverImage.sizes?.hero?.url ?? article.coverImage.url
+    : undefined
+
+  const coverImageAlt = isMedia(article.coverImage)
+  ? article.coverImage.alt ?? article.title
+  : article.title
 
   return (
     <div className="min-h-screen">
@@ -75,7 +81,7 @@ export default async function ArticlePage({
           <div className="relative aspect-video sm:aspect-[2/1] mb-8 sm:mb-12 rounded-xl overflow-hidden border border-border">
             <Image
               src={coverImageUrl}
-              alt={article.coverImage?.alt ?? article.title}
+              alt={coverImageAlt ?? article.title}
               fill
               className="object-cover"
               priority

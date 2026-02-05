@@ -14,7 +14,7 @@ export async function fetchCarouselImages(limit = 5) {
 
     const data = await res.json()
     return data.docs ?? []
-  } catch (err) {
+  } catch {
     return []
   }
 }
@@ -32,7 +32,7 @@ export async function fetchArticles(limit = 5) {
 
     const data = await res.json()
     return data.docs ?? []
-  } catch (err) {
+  } catch {
     return []
   }
 }
@@ -68,7 +68,7 @@ export async function getContactInfo(): Promise<ContactGlobal | null>  {
 
     const data = await res.json()
     return data ?? null
-  } catch (err) {
+  } catch {
     return null
   }
 }
