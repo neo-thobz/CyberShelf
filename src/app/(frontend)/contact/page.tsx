@@ -5,7 +5,6 @@ import { formatAddress } from '@/utils/addressHelper';
 
 export default async function Contact() {
   const contactInfo = await getContactInfo()
-  console.log('Contact Info:', contactInfo);
 
   const items = [
     {
