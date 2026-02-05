@@ -1,3 +1,5 @@
+import { ARTICLE_STATUS } from "@/shared/constants/article-status"
+
 export async function fetchCarouselImages(limit = 5) {
   try {
     const res = await fetch(
@@ -18,8 +20,9 @@ export async function fetchCarouselImages(limit = 5) {
 
 export async function fetchArticles(limit = 5) {
   try {
+    console.log('Fetching articles with status:', ARTICLE_STATUS.PUBLISHED);
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/articles?where[status][equals]=published&limit=${limit}&sort=-publishedAt&depth=2`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/api/articles?where[status][equals]=${ARTICLE_STATUS.PUBLISHED}&limit=${limit}&sort=-publishedAt&depth=2`,
       { next: { revalidate: 60 } }
     )
 
@@ -36,7 +39,7 @@ export async function fetchArticles(limit = 5) {
 
 export async function getArticle(slug: string) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/articles?where[slug][equals]=${slug}&where[status][equals]=published&depth=2`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/api/articles?where[slug][equals]=${slug}&where[status][equals]=${ARTICLE_STATUS.PUBLISHED}&depth=2`,
     { next: { revalidate: 60 } }
   )
 

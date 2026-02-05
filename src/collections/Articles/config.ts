@@ -1,8 +1,8 @@
 import { convertLexicalToPlaintext } from '@payloadcms/richtext-lexical/plaintext'
 import type { CollectionConfig } from 'payload'
-import { STATUS_OPTIONS } from './constants'
 import { generateContentSummaryHook } from './hooks/generate-content-summary.hook'
 import { generateSlugHook } from './hooks/generate-slug.hook'
+import { ARTICLE_STATUS } from '@/shared/constants/article-status'
 
 export const Articles: CollectionConfig = {
     slug: 'articles',
@@ -73,15 +73,15 @@ export const Articles: CollectionConfig = {
             name: 'status',
             type: 'select',
             required: true,
-            options: Object.values(STATUS_OPTIONS),
-            defaultValue: STATUS_OPTIONS.DRAFT,
+            options: Object.values(ARTICLE_STATUS),
+            defaultValue: ARTICLE_STATUS.DRAFT,
         },
         {
             name: 'publishedAt',
             type: 'date',
             required: true,
             admin: {
-                condition: (data) => data?.status === STATUS_OPTIONS.PUBLISHED,
+                condition: (data) => data?.status === ARTICLE_STATUS.PUBLISHED,
                 date: { pickerAppearance: 'dayAndTime' },
             },
         },
