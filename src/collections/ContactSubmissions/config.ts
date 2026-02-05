@@ -28,12 +28,6 @@ export const ContactSubmissions: CollectionConfig = {
             required: true,
         },
         {
-            name: 'phone',
-            type: 'text',
-            required: true,
-            maxLength: 20,
-        },
-        {
             name: 'message',
             type: 'textarea',
             maxLength: 1000,
