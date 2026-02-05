@@ -1,38 +1,9 @@
 import Image from 'next/image'
 import { Calendar, User, Clock } from 'lucide-react'
 import { notFound } from 'next/navigation'
-import { getArticle } from '@/app/(frontend)/services/api'
+import { getArticleBySlug } from '@/collections/Articles/fetchers'
 import RichText from '../../components/RichText'
 import BackButton from '@/app/(frontend)/components/BackButton'
-
-interface Author {
-  id: string
-  name: string
-  role?: string
-  avatar?: {
-    url: string
-    alt?: string
-  } | string | number
-}
-
-interface ImageType {
-  url: string
-  alt?: string
-  sizes?: {
-    hero?: { url: string }
-    card?: { url: string }
-  }
-}
-
-interface Article {
-  title: string
-  content: any
-  contentSummary?: string
-  author?: Author | string | number | null
-  publishedAt?: string
-  readTimeInMins?: number
-  coverImage?: ImageType | null
-}
 
 export default async function ArticlePage({
   params,
@@ -41,26 +12,17 @@ export default async function ArticlePage({
 }) {
   const { slug } = await params
 
-  const article: Article | null = await getArticle(slug)
+  const article = await getArticleBySlug(slug)
 
   if (!article) {
     notFound()
   }
 
-  console.log("[v0] Article data:", JSON.stringify(article, null, 2))
-  console.log("[v0] Author field:", article.author)
-  console.log("[v0] Author type:", typeof article.author)
-
   // Handle both populated author object and unpopulated ID reference
-  const getAuthorName = () => {
-    if (!article.author) return 'Unknown author'
-    if (typeof article.author === 'string' || typeof article.author === 'number') {
-      return 'Unknown author' // Author not populated
-    }
-    return article.author.name ?? 'Unknown author'
-  }
-
-  const authorName = getAuthorName()
+  const author = article.author
+  const authorName = typeof author === 'object' && author !== null && 'name' in author 
+    ? author.name 
+    : 'Unknown author'
 
   const coverImageUrl =
     article.coverImage?.sizes?.hero?.url ?? article.coverImage?.url

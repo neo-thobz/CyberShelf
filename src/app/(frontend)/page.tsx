@@ -1,12 +1,13 @@
 import ImageCarousel from '@/app/(frontend)/components/ImageCarousel'
 import ArticleCard from '@/app/(frontend)/components/ArticleCard'
 import NoDataPlaceholder from '@/app/(frontend)/components/NoDataPlaceholder'
-import { fetchCarouselImages, fetchArticles } from '@/app/(frontend)/services/api'
+import { fetchCarouselImages } from '@/app/(frontend)/services/api'
+import { getPublishedArticles } from '@/collections/Articles/fetchers'
 
 export default async function Home() {
   const [carouselImages, articles] = await Promise.all([
     fetchCarouselImages(),
-    fetchArticles(),
+    getPublishedArticles(),
   ])
 
   return (

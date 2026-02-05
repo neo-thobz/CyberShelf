@@ -7,6 +7,7 @@ export async function getPublishedArticles() {
         const { docs: articles } = await payload.find({
             collection: 'articles',
             where: { status: { equals: STATUS_OPTIONS.PUBLISHED } },
+            depth: 2,
             select: {
                 slug: true,
                 title: true,
@@ -31,6 +32,7 @@ export async function getArticleBySlug(slug: string) {
         const { docs: articles } = await payload.find({
             collection: 'articles',
             limit: 1,
+            depth: 2,
             where: { slug: { equals: slug } },
         })
         const [firstArticle] = articles ?? []
