@@ -1,11 +1,11 @@
-# ContentHub - Modern Content Management Application
+# CyberShelf - Modern Content Management Application
 
 A full-stack content-managed web application built with Next.js 14, Payload CMS, PostgreSQL, and Tailwind CSS.
 
 ## 🚀 Live Demo
 
-**Frontend**: [Your Vercel URL]
-**Admin Panel**: [Your Vercel URL]/admin
+**Frontend**: [https://v0-cyber-shelf.vercel.app/]
+**Admin Panel**: [https://v0-cyber-shelf.vercel.app/]/admin
 
 ## 📋 Features
 
@@ -21,8 +21,8 @@ A full-stack content-managed web application built with Next.js 14, Payload CMS,
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **Next.js 14** - React framework with App Router
-- **React 18** - UI library
+- **Next.js 15** - React framework with App Router
+- **React 19** - UI library
 - **TypeScript** - Type safety
 - **Tailwind CSS** - Utility-first styling
 - **Swiper** - Touch-enabled carousel
@@ -313,10 +313,9 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 👨‍💻 Author
 
-**Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
-- Email: your.email@example.com
+**neoThobs**
+- GitHub: [@neo-thobz](https://github.com/neo-thobz)
+- LinkedIn: [neoThobs LinkedIn](https://linkedin.com/in/neoThobs)
 
 ## 🙏 Acknowledgments
 
@@ -330,7 +329,6 @@ This project is open source and available under the [MIT License](LICENSE).
 
 For questions or support:
 - Open an issue in this repository
-- Email: your.email@example.com
 
 ---
 
