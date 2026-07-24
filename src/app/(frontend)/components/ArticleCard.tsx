@@ -43,41 +43,44 @@ export default function ArticleCard({
   const imageUrl =
     coverImage?.sizes?.card?.url ??
     coverImage?.url ??
-    '/placeholder-image.jpg' 
+    '/placeholder-image.jpg'
 
   const imageAlt = coverImage?.alt ?? title
 
   return (
     <Link href={`/articles/${slug}`} className="group block">
-      <article className="bg-card border border-border rounded-xl overflow-hidden hover:border-muted-foreground/30 transition-all duration-300 h-full flex flex-col">
+      <article className="border border-border bg-card overflow-hidden transition-all duration-300 hover:border-accent/50 h-full flex flex-col">
         {/* Image */}
-        <div className="relative h-48 sm:h-52 overflow-hidden">
+        <div className="relative h-44 sm:h-48 overflow-hidden flex-shrink-0">
           <Image
             src={imageUrl}
             alt={imageAlt}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
+          {/* Cyber corner accent */}
+          <div className="absolute top-0 left-0 w-4 h-4 border-l-2 border-t-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            style={{ borderColor: 'var(--color-cyber)' }} />
         </div>
-        
+
         {/* Content */}
-        <div className="p-5 sm:p-6 flex flex-col flex-1">
-          <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2 group-hover:text-accent transition-colors line-clamp-2 text-balance">
+        <div className="p-5 flex flex-col flex-1">
+          <h3 className="font-mono text-base sm:text-lg font-bold text-foreground mb-2 group-hover:text-accent transition-colors duration-200 line-clamp-2 uppercase tracking-wide">
             {title}
           </h3>
-          <p className="text-muted-foreground text-sm sm:text-base mb-4 line-clamp-3 flex-1 leading-relaxed">
+          <p className="text-muted-foreground text-sm mb-4 line-clamp-3 flex-1 leading-relaxed font-sans">
             {excerpt}
           </p>
-          
+
           {/* Meta */}
-          <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-muted-foreground pt-4 border-t border-border">
+          <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground pt-3 border-t border-border font-mono tracking-wider">
             <div className="flex items-center gap-1.5">
-              <User size={14} className="text-muted-foreground/70" />
+              <User size={12} style={{ color: 'var(--color-cyber)' }} />
               <span>{author?.name ?? 'Unknown Author'}</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <Calendar size={14} className="text-muted-foreground/70" />
+              <Calendar size={12} style={{ color: 'var(--color-cyber)' }} />
               <span>{new Date(publishedDate).toLocaleDateString()}</span>
             </div>
           </div>
